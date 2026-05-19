@@ -56,3 +56,21 @@ Non-trivial additions (a new plugin, a major restructure) should land a design s
 ## Reference material
 
 Shared reference material (e.g., book citations, ASCII diagrams reused across skills) lives in `references/`. Skills cite references via relative paths.
+
+## Validation
+
+Before opening a pull request, run:
+
+```bash
+./scripts/validate.sh
+```
+
+It runs five checks:
+
+1. **JSON syntax** — `marketplace.json` and every `plugin.json` parses.
+2. **SKILL.md frontmatter** — each `SKILL.md` starts with YAML frontmatter containing `name:` and `description:`.
+3. **`name:` matches folder name** — the frontmatter `name` field equals the skill's folder name (otherwise discovery breaks silently).
+4. **Plugin registration is bidirectional** — every folder under `plugins/` is registered in `marketplace.json`, and every registered plugin folder exists.
+5. **No empty skill folders** — every directory under `plugins/*/skills/` has a `SKILL.md`.
+
+The same script runs in CI on every pull request and push to `main` (see `.github/workflows/validate.yml`). The CI workflow has read-only permissions and executes no untrusted input — it just invokes `scripts/validate.sh`.
