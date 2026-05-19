@@ -53,4 +53,4 @@ Domain events are useful independent of CQRS or event sourcing. You can ship the
 
 ## References
 
-- Evans, *Domain-Driven Design* (2003), Ch. 5 mentions events briefly in the context of Domain Service; the canonical treatment came later (Vernon, *Implementing Domain-Driven Design*, 2013). See `references/evans-chapter-map.md` for context.
+- Evans, *Domain-Driven Design* (2003), Ch. 5 mentions events briefly in the context of Domain Service; the canonical treatment came later in Vernon, *Implementing Domain-Driven Design* (2013).
