@@ -5,8 +5,8 @@
     "email": "yonvata@gmail.com"
   },
   "metadata": {
-    "description": "Open-source Claude Code skill marketplace. First plugins cover Domain-Driven Design — language-agnostic core plus Kotlin idiom adapter.",
-    "version": "0.1.0"
+    "description": "Open-source Claude Code skill marketplace. Plugins ground software engineering knowledge from canonical books into composable skills.",
+    "version": "0.2.0"
   },
   "plugins": [
     {
@@ -19,6 +19,18 @@
       "name": "ddd-kotlin",
       "description": "Kotlin idiom adapter for ddd-core. Maps DDD pattern decisions to idiomatic Kotlin (data/value/sealed classes, Result, Spring, Arrow).",
       "source": "./plugins/ddd-kotlin",
+      "strict": false
+    },
+    {
+      "name": "design-patterns-core",
+      "description": "Language-agnostic Gang-of-Four design patterns from Head First Design Patterns (2nd ed): mode entry points (identify, review, refactor-to-pattern) and the thirteen pattern primitives (Strategy, Observer, Decorator, Factory, Singleton, Command, Adapter, Facade, Template Method, Iterator, Composite, State, Proxy).",
+      "source": "./plugins/design-patterns-core",
+      "strict": false
+    },
+    {
+      "name": "design-patterns-kotlin",
+      "description": "Kotlin idiom adapter for design-patterns-core. Maps each GoF pattern to its idiomatic Kotlin treatment with explicit callouts where language features (object, sealed classes, extension functions, delegation) supersede the pattern.",
+      "source": "./plugins/design-patterns-kotlin",
       "strict": false
     }
   ]
