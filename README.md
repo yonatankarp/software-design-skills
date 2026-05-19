@@ -12,6 +12,7 @@ An open-source [Claude Code](https://docs.claude.com/en/docs/claude-code) skill 
 | **`design-patterns-kotlin`** | Kotlin idiom adapter for `design-patterns-core`. Calls out where Kotlin language features (`object`, sealed classes, `by` delegation, function types, named arguments, `data class` copy, scope functions) supersede the pattern. Grounded in Soshin's *Kotlin Design Patterns and Best Practices*. |
 | **`kotlin-patterns`** | Kotlin-specific patterns that aren't GoF: pattern matching (`sealed` + `when`), higher-order functions, Coroutines patterns (scope, launch vs async, dispatchers, structured concurrency, channels, select, actor pattern, testing, callback bridging), Flow patterns (cold vs hot, operators), type-safe DSL builders, and a Kotlin anti-pattern catalog. Grounded in Soshin's *Kotlin Design Patterns and Best Practices* and Moskala's *Kotlin Coroutines*. |
 | **`architecture-patterns`** | Language-agnostic software architecture patterns: macro styles (`arch-layered`, `arch-hexagonal`, `arch-event-driven`, `arch-microservices`), cross-cutting patterns (`arch-cqrs`, `arch-event-sourcing`, `arch-saga`, `arch-circuit-breaker`), migration / governance (`arch-strangler-fig`, `arch-fitness-functions`, `arch-adr`), and `arch-solid` principles. Grounded in Richards & Ford, Khononov, Bellemare, Hombergs, Newman, and Martin. |
+| **`tdd-patterns`** | Test-driven development techniques grounded in Kent Beck's *Test-Driven Development By Example*: process patterns (`tdd-fake-it`, `tdd-triangulate`, `tdd-obvious-implementation`, `tdd-one-step-test`, `tdd-child-test`), test design patterns (`tdd-test-isolation`, `tdd-mock-object`, `tdd-learning-test`, `tdd-regression-test`), and a TDD anti-pattern catalog. The *how* of TDD, not the *whether*. |
 
 More plugins (other languages, other adjacent patterns) will live as siblings under `plugins/`.
 
@@ -153,6 +154,32 @@ More plugins (other languages, other adjacent patterns) will live as siblings un
 **Principles:**
 
 - [`arch-solid`](plugins/architecture-patterns/skills/arch-solid/SKILL.md) — the five SOLID principles, with honest caveats
+
+### `tdd-patterns` (12 skills)
+
+**Mode:**
+
+- [`tdd-identify`](plugins/tdd-patterns/skills/tdd-identify/SKILL.md) — diagnostic: which TDD technique applies to the current stuck moment?
+- [`tdd-red-green-refactor`](plugins/tdd-patterns/skills/tdd-red-green-refactor/SKILL.md) — the canonical TDD cycle and when not to use TDD
+
+**Process patterns (how to make the test pass):**
+
+- [`tdd-fake-it`](plugins/tdd-patterns/skills/tdd-fake-it/SKILL.md) — return the literal expected value; generalize next
+- [`tdd-triangulate`](plugins/tdd-patterns/skills/tdd-triangulate/SKILL.md) — second test forces the fake to become real
+- [`tdd-obvious-implementation`](plugins/tdd-patterns/skills/tdd-obvious-implementation/SKILL.md) — when you know what to type, type it
+- [`tdd-one-step-test`](plugins/tdd-patterns/skills/tdd-one-step-test/SKILL.md) — pick the next test that teaches the most while staying implementable
+- [`tdd-child-test`](plugins/tdd-patterns/skills/tdd-child-test/SKILL.md) — when stuck on a big test, write a smaller one
+
+**Test design patterns:**
+
+- [`tdd-test-isolation`](plugins/tdd-patterns/skills/tdd-test-isolation/SKILL.md) — every test independent of every other; no shared state, no order dependence
+- [`tdd-mock-object`](plugins/tdd-patterns/skills/tdd-mock-object/SKILL.md) — test doubles; the five flavors and when each is appropriate
+- [`tdd-learning-test`](plugins/tdd-patterns/skills/tdd-learning-test/SKILL.md) — test a third-party library to learn it and catch breakage
+- [`tdd-regression-test`](plugins/tdd-patterns/skills/tdd-regression-test/SKILL.md) — every bug gets a test that would have caught it
+
+**Smells:**
+
+- [`tdd-anti-patterns`](plugins/tdd-patterns/skills/tdd-anti-patterns/SKILL.md) — catalog of test-suite anti-patterns
 
 ## Installing
 
