@@ -10,6 +10,7 @@ An open-source [Claude Code](https://docs.claude.com/en/docs/claude-code) skill 
 | **`ddd-kotlin`** | Kotlin idiom adapter for `ddd-core`. |
 | **`design-patterns-core`** | Language-agnostic Gang-of-Four design patterns. Three mode entry points (`gof-identify`, `gof-review`, `gof-refactor-to-pattern`) plus seventeen pattern primitives — the thirteen from *Head First Design Patterns* (2nd ed) plus Builder, Prototype, Bridge, Visitor from the broader GoF / Soshin canon. |
 | **`design-patterns-kotlin`** | Kotlin idiom adapter for `design-patterns-core`. Calls out where Kotlin language features (`object`, sealed classes, `by` delegation, function types, named arguments, `data class` copy, scope functions) supersede the pattern. Grounded in Soshin's *Kotlin Design Patterns and Best Practices*. |
+| **`kotlin-patterns`** | Kotlin-specific patterns that aren't GoF: pattern matching (`sealed` + `when`), higher-order functions, Coroutines patterns (scope, launch vs async, dispatchers, structured concurrency), Flow patterns (cold vs hot, operators), type-safe DSL builders, and a Kotlin anti-pattern catalog. Grounded in Soshin's *Kotlin Design Patterns and Best Practices* Section 2. |
 
 More plugins (other languages, adjacent patterns like CQRS / event sourcing / hexagonal architecture) will live as siblings under `plugins/`.
 
@@ -87,6 +88,34 @@ More plugins (other languages, adjacent patterns like CQRS / event sourcing / he
 ### `design-patterns-kotlin` (1 skill)
 
 - [`gof-kotlin-idioms`](plugins/design-patterns-kotlin/skills/gof-kotlin-idioms/SKILL.md) — pattern → idiomatic Kotlin, with explicit "when the language supersedes the pattern" callouts
+
+### `kotlin-patterns` (11 skills)
+
+**Mode:**
+
+- [`kp-identify`](plugins/kotlin-patterns/skills/kp-identify/SKILL.md) — diagnostic: which Kotlin-specific pattern fits?
+
+**Functional:**
+
+- [`kp-sealed-when`](plugins/kotlin-patterns/skills/kp-sealed-when/SKILL.md) — pattern matching via sealed types + exhaustive `when`
+- [`kp-higher-order-functions`](plugins/kotlin-patterns/skills/kp-higher-order-functions/SKILL.md) — function types, `inline`, reified
+
+**Coroutines:**
+
+- [`kp-coroutine-scope`](plugins/kotlin-patterns/skills/kp-coroutine-scope/SKILL.md) — scope ownership and lifecycle
+- [`kp-launch-vs-async`](plugins/kotlin-patterns/skills/kp-launch-vs-async/SKILL.md) — fire-and-forget vs awaitable
+- [`kp-dispatchers`](plugins/kotlin-patterns/skills/kp-dispatchers/SKILL.md) — Default / IO / Main / Unconfined
+- [`kp-structured-concurrency`](plugins/kotlin-patterns/skills/kp-structured-concurrency/SKILL.md) — `coroutineScope` vs `supervisorScope`
+
+**Flow:**
+
+- [`kp-flow-cold-vs-hot`](plugins/kotlin-patterns/skills/kp-flow-cold-vs-hot/SKILL.md) — `Flow` / `SharedFlow` / `StateFlow`
+- [`kp-flow-operators`](plugins/kotlin-patterns/skills/kp-flow-operators/SKILL.md) — map/filter/flatMap*/combine/debounce/buffer
+
+**DSL & anti-patterns:**
+
+- [`kp-type-safe-builders`](plugins/kotlin-patterns/skills/kp-type-safe-builders/SKILL.md) — lambda-with-receiver, `@DslMarker`
+- [`kp-anti-patterns`](plugins/kotlin-patterns/skills/kp-anti-patterns/SKILL.md) — Kotlin-specific code smells catalog
 
 ## Installing
 
