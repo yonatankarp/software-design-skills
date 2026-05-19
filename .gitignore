@@ -6,3 +6,6 @@
 node_modules/
 .env
 .env.local
+
+# Implementation plans are process artifacts — not shipped
+.plans/
