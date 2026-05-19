@@ -1,0 +1,10 @@
+{
+  "name": "architecture-patterns",
+  "version": "0.1.0",
+  "description": "Language-agnostic software architecture patterns: macro styles (layered, hexagonal, event-driven, microservices), cross-cutting patterns (CQRS, event sourcing, saga, circuit breaker), migration / governance (strangler fig, fitness functions, architecture decision records), and SOLID principles. Grounded in Richards & Ford (*Fundamentals of Software Architecture*), Khononov (*Learning DDD*), Bellemare (*Building Event-Driven Microservices*), Hombergs (*Get Your Hands Dirty on Clean Architecture*), Newman (*Monolith to Microservices*), and Martin (*Clean Architecture*).",
+  "author": {
+    "name": "Yonatan Karp-Rudin",
+    "email": "yonvata@gmail.com"
+  },
+  "license": "MIT"
+}

@@ -6,7 +6,7 @@
   },
   "metadata": {
     "description": "Open-source Claude Code skill marketplace. Plugins ground software engineering knowledge from canonical books into composable skills.",
-    "version": "0.4.0"
+    "version": "0.5.0"
   },
   "plugins": [
     {
@@ -35,8 +35,14 @@
     },
     {
       "name": "kotlin-patterns",
-      "description": "Kotlin-specific patterns that aren't GoF: pattern matching with sealed + when, higher-order functions, Coroutines patterns (scope, launch vs async, dispatchers, structured concurrency), Flow patterns (cold vs hot, operators), type-safe DSL builders, and a Kotlin anti-pattern catalog. Grounded in Soshin's *Kotlin Design Patterns and Best Practices*.",
+      "description": "Kotlin-specific patterns that aren't GoF: pattern matching with sealed + when, higher-order functions, Coroutines patterns (scope, launch vs async, dispatchers, structured concurrency, channels, select, actor pattern, testing, callback bridging), Flow patterns (cold vs hot, operators), type-safe DSL builders, and a Kotlin anti-pattern catalog. Grounded in Soshin's *Kotlin Design Patterns and Best Practices* and Moskala's *Kotlin Coroutines*.",
       "source": "./plugins/kotlin-patterns",
+      "strict": false
+    },
+    {
+      "name": "architecture-patterns",
+      "description": "Language-agnostic software architecture patterns: macro styles (layered, hexagonal, event-driven, microservices), cross-cutting patterns (CQRS, event sourcing, saga, circuit breaker), migration / governance (strangler fig, fitness functions, architecture decision records), and SOLID principles.",
+      "source": "./plugins/architecture-patterns",
       "strict": false
     }
   ]
