@@ -6,7 +6,7 @@
   },
   "metadata": {
     "description": "Open-source Claude Code skill marketplace. Plugins ground software engineering knowledge from canonical books into composable skills.",
-    "version": "0.5.0"
+    "version": "0.6.0"
   },
   "plugins": [
     {
@@ -43,6 +43,12 @@
       "name": "architecture-patterns",
       "description": "Language-agnostic software architecture patterns: macro styles (layered, hexagonal, event-driven, microservices), cross-cutting patterns (CQRS, event sourcing, saga, circuit breaker), migration / governance (strangler fig, fitness functions, architecture decision records), and SOLID principles.",
       "source": "./plugins/architecture-patterns",
+      "strict": false
+    },
+    {
+      "name": "tdd-patterns",
+      "description": "Test-driven development techniques grounded in Kent Beck's *Test-Driven Development By Example*. Process patterns (fake-it, triangulate, obvious implementation, one-step test, child test), test design patterns (isolation, mocks, learning tests, regression tests), and a TDD anti-pattern catalog. The 'how' of TDD, not the 'whether'.",
+      "source": "./plugins/tdd-patterns",
       "strict": false
     }
   ]

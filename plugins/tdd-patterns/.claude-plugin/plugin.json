@@ -1,0 +1,10 @@
+{
+  "name": "tdd-patterns",
+  "version": "0.1.0",
+  "description": "Test-driven development techniques grounded in Kent Beck's *Test-Driven Development By Example*. Process patterns (fake-it, triangulate, obvious implementation, one-step test, child test), test design patterns (isolation, mocks, learning tests, regression tests), and a TDD anti-pattern catalog. Complements Superpowers' `test-driven-development` workflow skill with the specific *techniques within* TDD.",
+  "author": {
+    "name": "Yonatan Karp-Rudin",
+    "email": "yonvata@gmail.com"
+  },
+  "license": "MIT"
+}
