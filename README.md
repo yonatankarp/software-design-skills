@@ -130,20 +130,42 @@ More plugins (other languages, adjacent patterns like CQRS / event sourcing / he
 
 ### Via the `skills` CLI (npx, no Claude Code commands)
 
-The community [`vercel-labs/skills`](https://github.com/vercel-labs/skills) CLI can install individual skills directly from this repo. It recursively discovers the SKILL.md files under `plugins/<plugin>/skills/`, so no special config is needed on the consumer side.
+The community [`vercel-labs/skills`](https://github.com/vercel-labs/skills) CLI installs skills directly from this repo — one skill, a few specific ones, a whole plugin, or everything. It recursively discovers SKILL.md files under `plugins/<plugin>/skills/`, so no special config is needed on the consumer side.
+
+**Browse what's available** (lists all skills in the repo, does not install):
 
 ```bash
-# Browse what's available (dry run — no install)
 npx skills add yonatankarp/ai-skills-market -l
+```
 
-# Install one skill globally for your user
+**Install a single skill:**
+
+```bash
+# Global (writes to ~/.claude/skills/)
 npx skills add yonatankarp/ai-skills-market --skill ddd-design -g
 
-# Install all 18 skills globally
-npx skills add yonatankarp/ai-skills-market --all -g
+# Project-level (writes to ./.claude/skills/ in the current directory)
+npx skills add yonatankarp/ai-skills-market --skill ddd-design
+```
 
-# Install into the current project (creates ./.claude/skills/)
-npx skills add yonatankarp/ai-skills-market --skill ddd-aggregate
+**Install several specific skills** (names space-separated):
+
+```bash
+npx skills add yonatankarp/ai-skills-market --skill ddd-aggregate gof-strategy ddd-bounded-context -g
+```
+
+**Install a whole plugin** — pass the plugin's path as the source. Only the skills inside that folder are picked up:
+
+```bash
+npx skills add yonatankarp/ai-skills-market/plugins/ddd-core --all -g
+```
+
+The same shape works for any plugin: `plugins/ddd-kotlin`, `plugins/design-patterns-core`, `plugins/design-patterns-kotlin`, etc.
+
+**Install everything in the marketplace:**
+
+```bash
+npx skills add yonatankarp/ai-skills-market --all -g
 ```
 
 The CLI auto-detects Claude Code as the target agent and writes skills into the right directory.
