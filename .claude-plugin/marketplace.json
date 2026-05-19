@@ -6,7 +6,7 @@
   },
   "metadata": {
     "description": "Open-source Claude Code skill marketplace. Plugins ground software engineering knowledge from canonical books into composable skills.",
-    "version": "0.3.0"
+    "version": "0.4.0"
   },
   "plugins": [
     {
@@ -31,6 +31,12 @@
       "name": "design-patterns-kotlin",
       "description": "Kotlin idiom adapter for design-patterns-core. Maps each of the seventeen GoF patterns to its idiomatic Kotlin treatment, with explicit callouts where language features (object, sealed classes, by-delegation, function types, named/default arguments, data class copy, scope functions) supersede the pattern.",
       "source": "./plugins/design-patterns-kotlin",
+      "strict": false
+    },
+    {
+      "name": "kotlin-patterns",
+      "description": "Kotlin-specific patterns that aren't GoF: pattern matching with sealed + when, higher-order functions, Coroutines patterns (scope, launch vs async, dispatchers, structured concurrency), Flow patterns (cold vs hot, operators), type-safe DSL builders, and a Kotlin anti-pattern catalog. Grounded in Soshin's *Kotlin Design Patterns and Best Practices*.",
+      "source": "./plugins/kotlin-patterns",
       "strict": false
     }
   ]

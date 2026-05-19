@@ -1,0 +1,10 @@
+{
+  "name": "kotlin-patterns",
+  "version": "0.1.0",
+  "description": "Kotlin-specific patterns that aren't GoF: pattern matching (sealed + when), higher-order functions, Coroutines patterns (scope ownership, launch vs async, dispatchers, structured concurrency), Flow patterns (cold vs hot, operators), type-safe DSL builders, and a catalog of Kotlin anti-patterns. Grounded in Alexey Soshin's *Kotlin Design Patterns and Best Practices*, Section 2.",
+  "author": {
+    "name": "Yonatan Karp-Rudin",
+    "email": "yonvata@gmail.com"
+  },
+  "license": "MIT"
+}
