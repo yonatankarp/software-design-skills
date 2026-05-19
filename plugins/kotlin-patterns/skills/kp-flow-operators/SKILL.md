@@ -54,8 +54,8 @@ queryInput
 
 - **`debounce(d)`** — emit only after `d` of quiet (no new emissions). Use for search-as-you-type, button-click flood control.
 - **`sample(d)`** — emit the latest value every `d` (regardless of how many were emitted).
-- **`throttleFirst(d)`** — emit the first value in each window of length `d`, drop the rest.
 - **`timeout(d)`** — fail if no value arrives within `d`.
+- **No built-in `throttleFirst`.** Unlike RxJava, `kotlinx.coroutines` does not ship a `throttleFirst` operator (emit first value in each window, drop the rest). If you need that semantic, write a custom extension or compose existing primitives (`conflate()` + a timed `transform`).
 
 **Backpressure — when producer outpaces consumer.**
 

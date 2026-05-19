@@ -24,7 +24,7 @@ Combine a `sealed class` or `sealed interface` (closed variant set) with an exha
 
 Two key Kotlin language features cooperating:
 
-**Sealed types.** A `sealed class` or `sealed interface` declares: "the set of direct subtypes is closed, declared in this file (or this module since Kotlin 1.5)". The compiler knows the full set.
+**Sealed types.** A `sealed class` or `sealed interface` declares a closed set of direct subtypes — declared in the same package and the same module as the parent (with source-set constraints in multiplatform projects). Subtypes can be top-level or nested inside other named classes, interfaces, or objects within that package. The compiler knows the full set.
 
 ```kotlin
 sealed interface Result<out T> {
@@ -56,14 +56,14 @@ The compiler's exhaustiveness check is the pattern's main value. It eliminates a
 - Closed variant set + variants carry different data → sealed hierarchy.
 - Closed set of pure tags, no payload → `enum class`.
 - Open set (extensible by consumers) → open interface.
-- Want compile-time exhaustiveness → make the `when` an expression (assign its result or return it), not a statement.
+- Want compile-time exhaustiveness — both expression *and* statement forms over sealed types, enums, and `Boolean` are checked exhaustively since Kotlin 1.7. Older codebases (pre-1.7) only enforced it for expression form, so you may still see "make the when an expression" advice in legacy guidance.
 
 ## Anti-patterns
 
 - `else` branches in `when` over sealed types — silently swallows new variants the compiler would have flagged.
 - Sealed hierarchy with one subtype — single variant means no exhaustiveness benefit; reconsider whether you need the hierarchy at all.
 - Sealed hierarchy where downstream modules need to add variants — defeats "closed". Open it up.
-- Using `when` as a statement (`when { … }` with no value) over a sealed type and forgetting that the compiler doesn't enforce exhaustiveness in statement form. Make it an expression.
+- Relying on non-exhaustive `when` over a sealed type. Since Kotlin 1.7 the compiler enforces exhaustiveness in both expression and statement form for sealed types, enums, and `Boolean`. Avoid `else` branches when you want the compiler to flag newly added variants.
 
 ## See also
 

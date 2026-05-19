@@ -43,7 +43,7 @@ Returns a `Deferred<T>`. Calling `.await()` suspends until the result is ready. 
 
 **Single-async is almost always wrong.** `val x = scope.async { compute() }.await()` is just an awkward way to write `val x = compute()` — no parallelism is achieved. Reach for `async` only when there are multiple results to compute in parallel.
 
-**Exception handling differs.** A `launch` block's failure propagates to the scope and crashes other coroutines (unless the scope uses a `SupervisorJob`). An `async` block's failure is captured in the `Deferred`; calling `.await()` rethrows it. Forgetting to `.await()` silently swallows the exception, which is a common source of bugs.
+**Exception handling differs.** A `launch` block's failure propagates to the parent scope and crashes other coroutines (unless the scope uses a `SupervisorJob`). An `async` block's failure is also captured in the returned `Deferred`; `.await()` rethrows it. As long as the `async` is a *child* of a regular `Job`, the failure still propagates to the parent — it is not silently lost. The failure becomes truly unobservable only when the `Deferred` is a root coroutine or sits under a `SupervisorJob` *and* nobody awaits it. The practical risk: you intended supervision (or were on a `GlobalScope`-like context) and forgot to `.await()`.
 
 **`withContext` is not `launch`.** `withContext(Dispatchers.IO) { … }` switches to a different dispatcher for a block and returns its result, but does *not* run concurrently with anything. It's not a launcher; it's a context switch.
 
@@ -57,7 +57,7 @@ Returns a `Deferred<T>`. Calling `.await()` suspends until the result is ready. 
 
 - `async { … }.await()` immediately on the same line — no parallelism, just `launch`-shaped overhead. Either call the `suspend` function directly or use `withContext` for a thread switch.
 - `launch` where the caller actually wanted a return value — the Job carries no value; the result is silently lost.
-- `async` whose `Deferred` is never awaited — exception is swallowed; result is discarded.
+- Root or supervised `async` whose `Deferred` is never awaited — failure is never observed by the caller and the result is discarded (under a regular parent `Job`, the failure still propagates up).
 - Mixing `async` and `launch` in the same parallel-decomposition — pick one style: usually `async` for all branches and `awaitAll(jobs)`.
 
 ## See also
