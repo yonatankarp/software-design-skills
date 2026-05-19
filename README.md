@@ -6,17 +6,18 @@ An open-source [Claude Code](https://docs.claude.com/en/docs/claude-code) skill 
 
 | Plugin | Purpose |
 | ------ | ------- |
-| **`ddd-core`** | Language-agnostic Domain-Driven Design. Four mode entry points (`ddd-design`, `ddd-review`, `ddd-refactor`, `ddd-implement`) plus thirteen pattern primitives covering Evans's strategic and tactical patterns. |
+| **`ddd-core`** | Language-agnostic Domain-Driven Design. Four mode entry points (`ddd-design`, `ddd-review`, `ddd-refactor`, `ddd-implement`) plus thirteen pattern primitives covering Evans's strategic and tactical patterns. Plus Khononov's `ddd-event-storming` workshop technique. |
 | **`ddd-kotlin`** | Kotlin idiom adapter for `ddd-core`. |
 | **`design-patterns-core`** | Language-agnostic Gang-of-Four design patterns. Three mode entry points (`gof-identify`, `gof-review`, `gof-refactor-to-pattern`) plus seventeen pattern primitives — the thirteen from *Head First Design Patterns* (2nd ed) plus Builder, Prototype, Bridge, Visitor from the broader GoF / Soshin canon. |
 | **`design-patterns-kotlin`** | Kotlin idiom adapter for `design-patterns-core`. Calls out where Kotlin language features (`object`, sealed classes, `by` delegation, function types, named arguments, `data class` copy, scope functions) supersede the pattern. Grounded in Soshin's *Kotlin Design Patterns and Best Practices*. |
 | **`kotlin-patterns`** | Kotlin-specific patterns that aren't GoF: pattern matching (`sealed` + `when`), higher-order functions, Coroutines patterns (scope, launch vs async, dispatchers, structured concurrency, channels, select, actor pattern, testing, callback bridging), Flow patterns (cold vs hot, operators), type-safe DSL builders, and a Kotlin anti-pattern catalog. Grounded in Soshin's *Kotlin Design Patterns and Best Practices* and Moskala's *Kotlin Coroutines*. |
+| **`architecture-patterns`** | Language-agnostic software architecture patterns: macro styles (`arch-layered`, `arch-hexagonal`, `arch-event-driven`, `arch-microservices`), cross-cutting patterns (`arch-cqrs`, `arch-event-sourcing`, `arch-saga`, `arch-circuit-breaker`), migration / governance (`arch-strangler-fig`, `arch-fitness-functions`, `arch-adr`), and `arch-solid` principles. Grounded in Richards & Ford, Khononov, Bellemare, Hombergs, Newman, and Martin. |
 
-More plugins (other languages, adjacent patterns like CQRS / event sourcing / hexagonal architecture) will live as siblings under `plugins/`.
+More plugins (other languages, other adjacent patterns) will live as siblings under `plugins/`.
 
 ## Skill index
 
-### `ddd-core` (17 skills)
+### `ddd-core` (18 skills)
 
 **Mode skills (entry points):**
 
@@ -42,8 +43,9 @@ More plugins (other languages, adjacent patterns like CQRS / event sourcing / he
 - [`ddd-repository`](plugins/ddd-core/skills/ddd-repository/SKILL.md)
 - [`ddd-factory`](plugins/ddd-core/skills/ddd-factory/SKILL.md)
 
-**Cross-cutting:**
+**Discovery & cross-cutting:**
 
+- [`ddd-event-storming`](plugins/ddd-core/skills/ddd-event-storming/SKILL.md) — Brandolini's workshop format for collaborative domain discovery
 - [`ddd-anti-patterns`](plugins/ddd-core/skills/ddd-anti-patterns/SKILL.md) — catalog cited by `ddd-review` and `ddd-refactor`
 - [`ddd-deeper-insight`](plugins/ddd-core/skills/ddd-deeper-insight/SKILL.md) — Evans Part III techniques
 
@@ -121,6 +123,36 @@ More plugins (other languages, adjacent patterns like CQRS / event sourcing / he
 
 - [`kp-type-safe-builders`](plugins/kotlin-patterns/skills/kp-type-safe-builders/SKILL.md) — lambda-with-receiver, `@DslMarker`
 - [`kp-anti-patterns`](plugins/kotlin-patterns/skills/kp-anti-patterns/SKILL.md) — Kotlin-specific code smells catalog
+
+### `architecture-patterns` (13 skills)
+
+**Mode:**
+
+- [`arch-identify`](plugins/architecture-patterns/skills/arch-identify/SKILL.md) — diagnostic: which architecture style or pattern fits?
+
+**Macro architecture styles:**
+
+- [`arch-layered`](plugins/architecture-patterns/skills/arch-layered/SKILL.md) — n-tier with strict top-down dependency
+- [`arch-hexagonal`](plugins/architecture-patterns/skills/arch-hexagonal/SKILL.md) — ports & adapters; domain at the centre
+- [`arch-event-driven`](plugins/architecture-patterns/skills/arch-event-driven/SKILL.md) — components communicate via events; broker vs mediator topology
+- [`arch-microservices`](plugins/architecture-patterns/skills/arch-microservices/SKILL.md) — independently deployable services aligned with business capabilities
+
+**Cross-cutting patterns:**
+
+- [`arch-cqrs`](plugins/architecture-patterns/skills/arch-cqrs/SKILL.md) — separate read and write models
+- [`arch-event-sourcing`](plugins/architecture-patterns/skills/arch-event-sourcing/SKILL.md) — events as the source of truth; state by replay
+- [`arch-saga`](plugins/architecture-patterns/skills/arch-saga/SKILL.md) — multi-step distributed transactions via compensation
+- [`arch-circuit-breaker`](plugins/architecture-patterns/skills/arch-circuit-breaker/SKILL.md) — protect callers from degraded dependencies (plus bulkhead, retry, timeout)
+
+**Migration & governance:**
+
+- [`arch-strangler-fig`](plugins/architecture-patterns/skills/arch-strangler-fig/SKILL.md) — incremental migration behind a facade
+- [`arch-fitness-functions`](plugins/architecture-patterns/skills/arch-fitness-functions/SKILL.md) — automated architecture-property checks in CI
+- [`arch-adr`](plugins/architecture-patterns/skills/arch-adr/SKILL.md) — architecture decision records
+
+**Principles:**
+
+- [`arch-solid`](plugins/architecture-patterns/skills/arch-solid/SKILL.md) — the five SOLID principles, with honest caveats
 
 ## Installing
 
