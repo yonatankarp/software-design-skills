@@ -256,20 +256,31 @@ This means you can install `ddd-core` alone to get DDD guidance in any language,
 
 ```
 software-design-skills/
-├── .claude-plugin/marketplace.json     # Marketplace definition
-├── plugins/
+├── .claude-plugin/
+│   └── marketplace.json                # Marketplace manifest (lists every plugin)
+├── .github/
+│   └── workflows/                      # CI: schema + structure validation
+├── plugins/                            # One folder per plugin
+│   ├── architecture-patterns/
 │   ├── ddd-core/
-│   │   ├── .claude-plugin/plugin.json
+│   │   ├── .claude-plugin/plugin.json  # Plugin manifest
 │   │   └── skills/                     # One folder per skill, each with SKILL.md
-│   └── ddd-kotlin/
-│       ├── .claude-plugin/plugin.json
-│       └── skills/
+│   ├── ddd-kotlin/
+│   ├── design-patterns-core/
+│   ├── design-patterns-kotlin/
+│   ├── kotlin-patterns/
+│   └── tdd-patterns/
 ├── docs/
-│   ├── specs/                          # Design specs per major change
 │   └── CONTRIBUTING.md                 # Skill authoring conventions
 ├── references/                         # Shared reference material (book citations, diagrams)
+├── scripts/
+│   ├── validate.sh                     # Local validation runner (run before pushing)
+│   └── skill-template.md               # Boilerplate for new skills
+├── LICENSE
 └── README.md
 ```
+
+Every plugin under `plugins/` follows the same shape — a `.claude-plugin/plugin.json` manifest and a `skills/` directory where each subfolder is one skill with a `SKILL.md` at its root.
 
 ## Contributing
 
