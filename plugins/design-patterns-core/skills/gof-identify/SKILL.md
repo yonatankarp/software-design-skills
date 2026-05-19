@@ -31,6 +31,8 @@ Walk the problem with these diagnostic questions, in this order:
 
 **2. Is it a creation problem?**
 - *Choosing which concrete class to instantiate*: `gof-factory`.
+- *Assembling an object via many (often optional) parameters or staged steps*: `gof-builder`.
+- *Creating a new instance by copying an existing one with a few fields changed*: `gof-prototype`.
 - *Making sure there's only one instance*: `gof-singleton` — but check first whether language features (Kotlin `object`, DI scoping) make the pattern unnecessary.
 
 **3. Is it a "wrap one object in another" problem?**
@@ -42,10 +44,12 @@ Walk the problem with these diagnostic questions, in this order:
 **4. Is it a structural problem?**
 - *Part-whole hierarchy, treat leaves and branches uniformly*: `gof-composite`.
 - *Traverse a collection without exposing its internals*: `gof-iterator`.
+- *Two orthogonal dimensions of variation (NxM subclass explosion otherwise)*: `gof-bridge`.
 
 **5. Is it a behavioral / communication problem?**
 - *One subject, many dependents that need updates*: `gof-observer`.
 - *Encapsulate a request as an object (queue, log, undo)*: `gof-command`.
+- *Add new operations over a stable hierarchy without modifying its element classes*: `gof-visitor` — but in Kotlin, prefer `sealed` + exhaustive `when`.
 
 **6. None of the above?** The problem may not need a GoF pattern at all. Common cases:
 - A plain function would solve it.
