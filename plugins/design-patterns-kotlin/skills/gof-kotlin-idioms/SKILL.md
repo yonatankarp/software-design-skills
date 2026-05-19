@@ -1,6 +1,6 @@
 ---
 name: gof-kotlin-idioms
-description: Use when implementing a GoF design pattern in Kotlin — phrases like "kotlin strategy", "kotlin singleton with object", "kotlin observer with flow", "by delegation for decorator", "sealed class state machine", "how do I express this pattern in kotlin idiomatically". For each GoF pattern, maps to the right Kotlin construct AND calls out where a Kotlin language feature supersedes the pattern entirely (object, sealed class, function types, by-delegation, default arguments, extension functions).
+description: Use when implementing a GoF design pattern in Kotlin — phrases like "kotlin strategy", "kotlin singleton with object", "kotlin observer with flow", "by delegation for decorator", "sealed class state machine", "kotlin builder vs named arguments", "data class copy as prototype", "how do I express this pattern in kotlin idiomatically". Maps each of the seventeen GoF patterns (HFDP's thirteen plus Builder, Prototype, Bridge, Visitor) to its idiomatic Kotlin construct AND flags where a Kotlin language feature (object, sealed class, function types, by-delegation, default arguments, named arguments, data class copy, extension functions, scope functions) supersedes the pattern entirely.
 ---
 
 ## One-line summary
@@ -47,7 +47,12 @@ class WeatherStation {
 weatherStation.readings.collect { display.show(it) }
 ```
 
-For UI / state-binding, `StateFlow` gives you the current value and a stream of updates. For events, `SharedFlow`. For one-shot async, `Deferred`.
+Choosing the variant:
+
+- **`StateFlow<T>`** — *always has a current value*, conflates duplicates. Use for *state* a consumer always needs the latest of (UI state, current user, current connection status). Read with `.value`; observe with `.collect`.
+- **`SharedFlow<T>`** — *no required current value*, can replay N past emissions, can buffer. Use for *events* — emit-and-listeners-react (notifications, navigation commands, one-shot signals). Configure `replay` and `extraBufferCapacity` deliberately.
+- **`Flow<T>`** (cold) — re-runs its emitter for each collector. Use for *pull-driven* streams (a query, a paged fetch). Each `.collect` starts a fresh execution.
+- **`Deferred<T>`** (`async { … }.await()`) — one-shot async value. Not really Observer; it's the Future/Promise analogue.
 
 **Decorator.** Use class delegation with `by`.
 
@@ -61,6 +66,8 @@ class MilkDecorator(coffee: Coffee) : Coffee by coffee {
 ```
 
 `by coffee` forwards every method to the wrapped instance; you override only what you change. Without `by`, you'd have to forward every method manually.
+
+**Caveat — `is` checks don't see through `by`.** A decorator implements the *interface*, not the wrapped *concrete class*. So `loggedRepo is DefaultRepository` returns `false` even though `loggedRepo` wraps a `DefaultRepository`. If you find yourself doing `is` checks against concrete wrapped types, the abstraction has leaked; restructure or treat the chain through the interface. (Soshin Ch. 3 covers this caveat explicitly.)
 
 **Factory.** Use a `companion object` factory method on the type, or a top-level function.
 
@@ -182,6 +189,79 @@ class ImageHolder(private val path: String) {
 
 For protection proxies, prefer authorization at a controller / boundary layer over an in-process proxy that can be bypassed.
 
+**Builder.** Default to *named arguments + default values* on a `data class` or constructor. Only reach for an explicit Builder when construction is genuinely staged (intermediate validation, type-state) or when a DSL builder reads better.
+
+```kotlin
+// Named args + defaults beat a classic Builder for most cases:
+data class HttpRequest(
+    val url: String,
+    val method: HttpMethod = HttpMethod.GET,
+    val headers: Map<String, String> = emptyMap(),
+    val body: ByteArray? = null,
+    val timeout: Duration = 30.seconds,
+)
+val req = HttpRequest(url = "/api", method = HttpMethod.POST, body = bytes)
+
+// DSL builder when assembly reads better as a recipe:
+val page = html {
+    head { title("Hello") }
+    body { p("World") }
+}
+```
+
+For DSL builders, use a function whose last parameter is a lambda with receiver (`html(block: HtmlBuilder.() -> Unit)`); the receiver makes the builder methods in-scope inside the lambda.
+
+**Prototype.** Use `data class.copy(...)`. That's Prototype as a language feature — no `clone()` interface, no registry boilerplate.
+
+```kotlin
+val baseRequest = HttpRequest(url = "/users")
+val authedRequest = baseRequest.copy(headers = baseRequest.headers + auth)
+```
+
+Caveat: `copy()` is *shallow*. Nested mutable collections (`MutableList`, `MutableMap`) inside a `data class` are shared with the copy. For deep clones, use immutable nested types (`List`, `Map`) or copy explicitly.
+
+**Bridge.** Plain composition via a constructor parameter. No abstract class needed; Kotlin's lack of constructor ceremony makes Bridge a few lines.
+
+```kotlin
+interface Renderer { fun render(shape: Shape) }
+class Circle(val r: Double, private val renderer: Renderer): Shape {
+    override fun draw() = renderer.render(this)
+}
+class VectorRenderer: Renderer { override fun render(s: Shape) { … } }
+class RasterRenderer: Renderer { override fun render(s: Shape) { … } }
+```
+
+Inject the `Renderer` via constructor (or DI) so abstraction and implementation evolve independently.
+
+**Visitor.** In Kotlin, almost always prefer `sealed` + exhaustive `when` over the Visitor pattern.
+
+```kotlin
+sealed class Shape
+data class Circle(val r: Double): Shape()
+data class Square(val side: Double): Shape()
+
+fun area(s: Shape): Double = when (s) {
+    is Circle -> Math.PI * s.r * s.r
+    is Square -> s.side * s.side
+}   // compiler enforces that every Shape variant is handled
+```
+
+Adding a new operation is a new function — no `accept(visitor)` ceremony. Adding a new element type is "loud" — the compiler flags every `when` that needs updating. That's usually the *better* trade-off than the classical Visitor's silent-default-no-op risk.
+
+Use classical Visitor only when the hierarchy is genuinely open-ended (you really can't make it `sealed`), or when visitors need to carry rich state across visits.
+
+## Scope functions (cross-cutting idiom)
+
+Several patterns above lean on Kotlin's scope functions (`let`, `run`, `apply`, `also`, `with`). Quick reference:
+
+- **`apply { … }`** — configure a receiver, return the receiver. Builder-like: `User().apply { name = "x"; email = "y" }`.
+- **`also { … }`** — side-effect on a receiver (logging, debugging), return the receiver. `obj.also { log.debug(it) }`.
+- **`let { … }`** — transform the receiver (passed as `it`), return the lambda's result. Common with nullable safe-calls: `nullable?.let { use(it) }`.
+- **`run { … }`** — like `let` but receiver is `this`. Use when you want `this`-style access to the receiver and a transformed result.
+- **`with(x) { … }`** — `run` as a top-level function; receiver passed in. Use when you don't want method-chain style.
+
+Pick the scope function whose *receiver style* (`this` vs `it`) and *return value* (receiver vs lambda result) match what the code is doing. Misusing them is one of Soshin's listed anti-patterns.
+
 ## Decision heuristics
 
 - Default to *language features over patterns* in Kotlin. The pattern is a hint about intent; the language usually provides a cleaner expression.
@@ -206,5 +286,6 @@ For protection proxies, prefer authorization at a controller / boundary layer ov
 
 ## References
 
-- Kotlin language docs on `object`, `data class`, `value class` (`@JvmInline`), `sealed class` / `sealed interface`, class delegation (`by`), and coroutines / `Flow`.
+- Kotlin language docs on `object`, `data class`, `value class` (`@JvmInline`), `sealed class` / `sealed interface`, class delegation (`by`), coroutines / `Flow` / `SharedFlow` / `StateFlow`, and scope functions.
 - *Head First Design Patterns* (2nd ed) — the underlying GoF patterns. The Kotlin renderings here often differ substantially from the book's Java examples; that's the point of an idiom adapter.
+- *Kotlin Design Patterns and Best Practices* (Alexey Soshin) — primary source for the Kotlin-flavored treatment of every pattern, the `by`-delegation `is`-check caveat, and the scope-function discipline. Highly recommended companion reading.
