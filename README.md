@@ -1,4 +1,4 @@
-# ai-skills-market
+# software-design-skills
 
 An open-source [Claude Code](https://docs.claude.com/en/docs/claude-code) skill marketplace. Skills are authored as language-agnostic knowledge units and grouped into plugins by topic.
 
@@ -160,9 +160,9 @@ More plugins (other languages, other adjacent patterns) will live as siblings un
 
 ```bash
 # Inside Claude Code
-/plugin marketplace add yonatankarp/ai-skills-market
-/plugin install ddd-core@ai-skills-market
-/plugin install ddd-kotlin@ai-skills-market
+/plugin marketplace add yonatankarp/software-design-skills
+/plugin install ddd-core@software-design-skills
+/plugin install ddd-kotlin@software-design-skills
 ```
 
 ### Via the `skills` CLI (npx, no Claude Code commands)
@@ -172,29 +172,29 @@ The community [`vercel-labs/skills`](https://github.com/vercel-labs/skills) CLI 
 **Browse what's available** (lists all skills in the repo, does not install):
 
 ```bash
-npx skills add yonatankarp/ai-skills-market -l
+npx skills add yonatankarp/software-design-skills -l
 ```
 
 **Install a single skill:**
 
 ```bash
 # Global (writes to ~/.claude/skills/)
-npx skills add yonatankarp/ai-skills-market --skill ddd-design -g
+npx skills add yonatankarp/software-design-skills --skill ddd-design -g
 
 # Project-level (writes to ./.claude/skills/ in the current directory)
-npx skills add yonatankarp/ai-skills-market --skill ddd-design
+npx skills add yonatankarp/software-design-skills --skill ddd-design
 ```
 
 **Install several specific skills** (names space-separated):
 
 ```bash
-npx skills add yonatankarp/ai-skills-market --skill ddd-aggregate gof-strategy ddd-bounded-context -g
+npx skills add yonatankarp/software-design-skills --skill ddd-aggregate gof-strategy ddd-bounded-context -g
 ```
 
 **Install a whole plugin** — pass the plugin's path as the source. Only the skills inside that folder are picked up:
 
 ```bash
-npx skills add yonatankarp/ai-skills-market/plugins/ddd-core --all -g
+npx skills add yonatankarp/software-design-skills/plugins/ddd-core --all -g
 ```
 
 The same shape works for any plugin: `plugins/ddd-kotlin`, `plugins/design-patterns-core`, `plugins/design-patterns-kotlin`, etc.
@@ -202,7 +202,7 @@ The same shape works for any plugin: `plugins/ddd-kotlin`, `plugins/design-patte
 **Install everything in the marketplace:**
 
 ```bash
-npx skills add yonatankarp/ai-skills-market --all -g
+npx skills add yonatankarp/software-design-skills --all -g
 ```
 
 The CLI auto-detects Claude Code as the target agent and writes skills into the right directory.
@@ -212,7 +212,7 @@ The CLI auto-detects Claude Code as the target agent and writes skills into the 
 To install from a local clone (e.g., while authoring or contributing):
 
 ```bash
-/plugin marketplace add ~/Projects/ai-skills-market
+/plugin marketplace add ~/Projects/software-design-skills
 ```
 
 ## How the skills compose
@@ -228,7 +228,7 @@ This means you can install `ddd-core` alone to get DDD guidance in any language,
 ## Repository layout
 
 ```
-ai-skills-market/
+software-design-skills/
 ├── .claude-plugin/marketplace.json     # Marketplace definition
 ├── plugins/
 │   ├── ddd-core/

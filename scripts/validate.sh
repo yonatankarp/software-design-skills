@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Validate the ai-skills-market marketplace structure.
+# Validate the software-design-skills marketplace structure.
 # Runs five checks; exits non-zero on any failure.
 #
 # Usage: ./scripts/validate.sh
