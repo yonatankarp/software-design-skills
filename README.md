@@ -7,7 +7,9 @@ An open-source [Claude Code](https://docs.claude.com/en/docs/claude-code) skill 
 | Plugin | Purpose |
 | ------ | ------- |
 | **`ddd-core`** | Language-agnostic Domain-Driven Design. Four mode entry points (`ddd-design`, `ddd-review`, `ddd-refactor`, `ddd-implement`) plus thirteen pattern primitives covering Evans's strategic and tactical patterns. |
-| **`ddd-kotlin`** | Kotlin idiom adapter. Translates DDD pattern decisions into idiomatic Kotlin. |
+| **`ddd-kotlin`** | Kotlin idiom adapter for `ddd-core`. |
+| **`design-patterns-core`** | Language-agnostic Gang-of-Four design patterns from *Head First Design Patterns* (2nd ed). Three mode entry points (`gof-identify`, `gof-review`, `gof-refactor-to-pattern`) plus the thirteen patterns the book covers. |
+| **`design-patterns-kotlin`** | Kotlin idiom adapter for `design-patterns-core`. Calls out where Kotlin language features (`object`, sealed classes, `by` delegation, function types) supersede the pattern. |
 
 More plugins (other languages, adjacent patterns like CQRS / event sourcing / hexagonal architecture) will live as siblings under `plugins/`.
 
@@ -47,6 +49,34 @@ More plugins (other languages, adjacent patterns like CQRS / event sourcing / he
 ### `ddd-kotlin` (1 skill)
 
 - [`ddd-kotlin-idioms`](plugins/ddd-kotlin/skills/ddd-kotlin-idioms/SKILL.md) — pattern → idiomatic Kotlin (stdlib only, no framework opinions)
+
+### `design-patterns-core` (16 skills)
+
+**Mode skills:**
+
+- [`gof-identify`](plugins/design-patterns-core/skills/gof-identify/SKILL.md) — diagnostic: which pattern fits this problem?
+- [`gof-review`](plugins/design-patterns-core/skills/gof-review/SKILL.md) — audit existing pattern usage
+- [`gof-refactor-to-pattern`](plugins/design-patterns-core/skills/gof-refactor-to-pattern/SKILL.md) — sequence small steps toward a target pattern
+
+**Patterns (one per HFDP chapter):**
+
+- [`gof-strategy`](plugins/design-patterns-core/skills/gof-strategy/SKILL.md)
+- [`gof-observer`](plugins/design-patterns-core/skills/gof-observer/SKILL.md)
+- [`gof-decorator`](plugins/design-patterns-core/skills/gof-decorator/SKILL.md)
+- [`gof-factory`](plugins/design-patterns-core/skills/gof-factory/SKILL.md) — Simple / Method / Abstract together
+- [`gof-singleton`](plugins/design-patterns-core/skills/gof-singleton/SKILL.md) — with strong anti-pattern caveats
+- [`gof-command`](plugins/design-patterns-core/skills/gof-command/SKILL.md)
+- [`gof-adapter`](plugins/design-patterns-core/skills/gof-adapter/SKILL.md)
+- [`gof-facade`](plugins/design-patterns-core/skills/gof-facade/SKILL.md)
+- [`gof-template-method`](plugins/design-patterns-core/skills/gof-template-method/SKILL.md)
+- [`gof-iterator`](plugins/design-patterns-core/skills/gof-iterator/SKILL.md)
+- [`gof-composite`](plugins/design-patterns-core/skills/gof-composite/SKILL.md)
+- [`gof-state`](plugins/design-patterns-core/skills/gof-state/SKILL.md)
+- [`gof-proxy`](plugins/design-patterns-core/skills/gof-proxy/SKILL.md)
+
+### `design-patterns-kotlin` (1 skill)
+
+- [`gof-kotlin-idioms`](plugins/design-patterns-kotlin/skills/gof-kotlin-idioms/SKILL.md) — pattern → idiomatic Kotlin, with explicit "when the language supersedes the pattern" callouts
 
 ## Installing
 
