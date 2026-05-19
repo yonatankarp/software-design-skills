@@ -1,0 +1,10 @@
+{
+  "name": "design-patterns-kotlin",
+  "version": "0.1.0",
+  "description": "Kotlin idiom adapter for design-patterns-core. Translates each GoF pattern to its idiomatic Kotlin treatment and flags cases where a Kotlin language feature (object, sealed/data class, extension function, delegation, default argument) supersedes the pattern entirely.",
+  "author": {
+    "name": "Yonatan Karp-Rudin",
+    "email": "yonvata@gmail.com"
+  },
+  "license": "MIT"
+}
