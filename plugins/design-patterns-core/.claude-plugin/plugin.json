@@ -1,7 +1,7 @@
 {
   "name": "design-patterns-core",
-  "version": "0.1.0",
-  "description": "Language-agnostic Gang-of-Four design patterns. Three mode entry-point skills (identify, review, refactor-to-pattern) and thirteen pattern primitive skills, grounded in Head First Design Patterns (2nd ed). Pattern skills focus on decisions and anti-patterns; code generation lives in design-patterns-kotlin.",
+  "version": "0.2.0",
+  "description": "Language-agnostic Gang-of-Four design patterns. Three mode entry-point skills (identify, review, refactor-to-pattern) and seventeen pattern primitive skills, grounded in Head First Design Patterns (2nd ed) plus Builder, Prototype, Bridge, and Visitor from the broader GoF / Soshin canon. Pattern skills focus on decisions and anti-patterns; code generation lives in design-patterns-kotlin.",
   "author": {
     "name": "Yonatan Karp-Rudin",
     "email": "yonvata@gmail.com"

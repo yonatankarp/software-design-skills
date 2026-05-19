@@ -6,7 +6,7 @@
   },
   "metadata": {
     "description": "Open-source Claude Code skill marketplace. Plugins ground software engineering knowledge from canonical books into composable skills.",
-    "version": "0.2.0"
+    "version": "0.3.0"
   },
   "plugins": [
     {
@@ -23,13 +23,13 @@
     },
     {
       "name": "design-patterns-core",
-      "description": "Language-agnostic Gang-of-Four design patterns from Head First Design Patterns (2nd ed): mode entry points (identify, review, refactor-to-pattern) and the thirteen pattern primitives (Strategy, Observer, Decorator, Factory, Singleton, Command, Adapter, Facade, Template Method, Iterator, Composite, State, Proxy).",
+      "description": "Language-agnostic Gang-of-Four design patterns: three mode entry points (identify, review, refactor-to-pattern) and seventeen pattern primitives — Strategy, Observer, Decorator, Factory, Singleton, Command, Adapter, Facade, Template Method, Iterator, Composite, State, Proxy, plus Builder, Prototype, Bridge, Visitor.",
       "source": "./plugins/design-patterns-core",
       "strict": false
     },
     {
       "name": "design-patterns-kotlin",
-      "description": "Kotlin idiom adapter for design-patterns-core. Maps each GoF pattern to its idiomatic Kotlin treatment with explicit callouts where language features (object, sealed classes, extension functions, delegation) supersede the pattern.",
+      "description": "Kotlin idiom adapter for design-patterns-core. Maps each of the seventeen GoF patterns to its idiomatic Kotlin treatment, with explicit callouts where language features (object, sealed classes, by-delegation, function types, named/default arguments, data class copy, scope functions) supersede the pattern.",
       "source": "./plugins/design-patterns-kotlin",
       "strict": false
     }
