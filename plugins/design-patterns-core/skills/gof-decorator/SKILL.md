@@ -41,6 +41,19 @@ The "open–closed principle" is the standard motivation — classes should be o
 - Decorators that change the contract (return `null` where the wrapped object would not) — silently breaks callers.
 - Using inheritance to add the behavior anyway because "the decorator is just a subclass with extra stuff" — defeats the point.
 
+## Caveat: a decorator is not the wrapped type
+
+A decorator implements the *interface* of what it wraps, not the concrete *class*. So `is` / `instanceof` checks against the wrapped concrete type will return false, even though the decorator behaves like it:
+
+```
+val loggedRepo: Repository = LoggingRepository(DefaultRepository())
+loggedRepo is Repository           // true
+loggedRepo is DefaultRepository    // false — even though it wraps one
+loggedRepo is LoggingRepository    // true
+```
+
+This bites people doing runtime type checks "through" a decorator chain. If you find yourself wanting to ask "is the underlying object of type X?", the abstraction has already leaked — either treat the chain through the interface, or restructure.
+
 ## See also
 
 - `gof-adapter` — when the wrapper changes the *interface*, not just behavior.
@@ -51,3 +64,4 @@ The "open–closed principle" is the standard motivation — classes should be o
 ## References
 
 - *Head First Design Patterns* (2nd ed), Ch. 3 ("Decorating Objects: the Decorator Pattern") — canonical Starbuzz coffee example and Java I/O walkthrough.
+- *Kotlin Design Patterns and Best Practices* (Alexey Soshin), Ch. 3 — Decorator, including the "Caveats of the Decorator design pattern" section that motivates the `is`-check caveat above.
